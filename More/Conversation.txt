@@ -1,0 +1,685 @@
+## You
+bing ai
+## Copilot
+Tired of coming up empty-handed when you search? Try our new engine – it gives the answers you want! We used Microsoft Bing's rich results as a foundation and added AI for even better performance.
+## You
+سلام من می خواهم با ری اکت برای من همچین کاری بکنی
+1.یک کلاس کارت بسازی و کامپوننت کارت را بسازی به طوری که یک اسم و یک ایمیل و یک عکس داشته باشد و داخل یک فضای مستطیلی قرار بدهی .
+به این صورت که از فایل name.js اسم و ایمیل را طبق id بگیری و درونش قرار بدهی و برای عکس با لینک robohash.org/id
+به جای انجا که id نوشتم id ها را قرار دهی و خودش عکس های منحصر به فرد بدهد
+2.فایل Cardlist.js بسازی به طوری که از card کامپونتن ها را بگیرد و رندر کند
+(یعنی card ساخت کامپوننت است و cardlist گروه آن ها )
+3.یک فایل searchbox.js بسازی به طوری که در بالای سایل باشد و به صورت لایو و آنلاین اسامی سرچ شده را فیلتر کند و درون سایت نمایش دهد
+(یعنی در صفحه اول سایت تمام کامپوننت ها نشان داده شود و بعد از زدن حرف  a فقط ماپوننت های a دار نمایش داده شوند )
+4.درون index.js هم که مشخص است
+## Copilot
+سلام! خوشحالم که می‌توانم کمکتان کنم. بیایید با هم این پروژه را انجام دهیم. ابتدا کدهای مربوط به هر بخش را برایتان می‌نویسم:
+- Card.js: این فایل شامل کلاس کارت و کامپوننت کارت خواهد بود.
+
+import React from 'react';
+
+const Card = ({ id, name, email }) => {
+  return (
+    <div className='tc bg-light-green dib br3 pa3 ma2 grow bw2 shadow-5'>
+      <img alt='robots' src={`https://robohash.org/${id}?200x200`} />
+      <div>
+        <h2>{name}</h2>
+        <p>{email}</p>
+      </div>
+    </div>
+  );
+}
+
+export default Card;
+
+- CardList.js: این فایل کامپوننت CardList را می‌سازد که گروهی از کارت‌ها را رندر می‌کند.
+
+import React from 'react';
+import Card from './Card';
+
+const CardList = ({ robots }) => {
+  return (
+    <div>
+      {
+        robots.map((user, i) => {
+          return (
+            <Card 
+              key={i} 
+              id={robots[i].id} 
+              name={robots[i].name} 
+              email={robots[i].email}
+            />
+          );
+        })
+      }
+    </div>
+  );
+}
+
+export default CardList;
+
+- SearchBox.js: این فایل شامل کامپوننت SearchBox خواهد بود که امکان جستجوی زنده را فراهم می‌کند.
+
+import React from 'react';
+
+const SearchBox = ({ searchChange }) => {
+  return (
+    <div className='pa2'>
+      <input 
+        className='pa3 ba b--green bg-lightest-blue'
+        type='search' 
+        placeholder='search robots' 
+        onChange={searchChange}
+      />
+    </div>
+  );
+}
+
+export default SearchBox;
+
+- index.js: این فایل اصلی است که همه کامپوننت‌ها را به هم متصل می‌کند.
+
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import CardList from './CardList';
+import SearchBox from './SearchBox';
+import { robots } from './robots';
+import './index.css';
+
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      robots: robots,
+      searchfield: ''
+    }
+  }
+
+  onSearchChange = (event) => {
+    this.setState({ searchfield: event.target.value })
+  }
+
+  render() {
+    const filteredRobots = this.state.robots.filter(robot => {
+      return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
+    })
+    return (
+      <div className='tc'>
+        <h1>RoboFriends</h1>
+        <SearchBox searchChange={this.onSearchChange}/>
+        <CardList robots={filteredRobots} />
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+
+امیدوارم این کدها به شما کمک کنند. اگر سوال دیگری دارید یا نیاز به توضیحات بیشتری دارید، خوشحال می‌شوم که کمک کنم! 😊
+## You
+Module not found: Error: Can't resolve './robots' in 'C:\Users\Reza\Desktop\my-app\src'
+## Copilot
+به نظر می‌رسد که فایل robots.js در مسیر پروژه شما وجود ندارد یا به درستی وارد نشده است. بیایید این فایل را ایجاد کنیم و اطلاعات مورد نیاز را در آن قرار دهیم.
+- robots.js: این فایل شامل اطلاعات ربات‌ها خواهد بود.
+
+export const robots = [
+  {
+    id: 1,
+    name: 'Leanne Graham',
+    email: 'Sincere@april.biz'
+  },
+  {
+    id: 2,
+    name: 'Ervin Howell',
+    email: 'Shanna@melissa.tv'
+  },
+  {
+    id: 3,
+    name: 'Clementine Bauch',
+    email: 'Nathan@yesenia.net'
+  },
+  {
+    id: 4,
+    name: 'Patricia Lebsack',
+    email: 'Julianne.OConner@kory.org'
+  },
+  {
+    id: 5,
+    name: 'Chelsey Dietrich',
+    email: 'Lucio_Hettinger@annie.ca'
+  },
+  {
+    id: 6,
+    name: 'Mrs. Dennis Schulist',
+    email: 'Karley_Dach@jasper.info'
+  },
+  {
+    id: 7,
+    name: 'Kurtis Weissnat',
+    email: 'Telly.Hoeger@billy.biz'
+  },
+  {
+    id: 8,
+    name: 'Nicholas Runolfsdottir V',
+    email: 'Sherwood@rosamond.me'
+  },
+  {
+    id: 9,
+    name: 'Glenna Reichert',
+    email: 'Chaim_McDermott@dana.io'
+  },
+  {
+    id: 10,
+    name: 'Clementina DuBuque',
+    email: 'Rey.Padberg@karina.biz'
+  }
+];
+
+این فایل را در مسیر src پروژه خود قرار دهید و سپس دوباره امتحان کنید. اگر باز هم مشکلی داشتید، خوشحال می‌شوم که کمک کنم! 😊
+## You
+Module not found: Error: Can't resolve './robots' in 'C:\Users\Reza\Desktop\my-app\src'
+## Copilot
+به نظر می‌رسد که هنوز مشکلی در مسیر فایل robots.js وجود دارد. بیایید مطمئن شویم که فایل robots.js را به درستی در مسیر src قرار داده‌اید و نام فایل و مسیر آن صحیح است.
+- مطمئن شوید که فایل robots.js در مسیر src قرار دارد:
+
+my-app
+├── src
+│   ├── robots.js
+│   ├── Card.js
+│   ├── CardList.js
+│   ├── SearchBox.js
+│   └── index.js
+
+- در فایل index.js، مطمئن شوید که به درستی فایل robots.js را وارد کرده‌اید:
+
+import { robots } from './robots';
+
+اگر همه چیز به درستی تنظیم شده باشد، نباید مشکلی وجود داشته باشد. اگر همچنان مشکل دارید، لطفاً مطمئن شوید که نام فایل و مسیر آن دقیقاً با آنچه در کد وارد کرده‌اید مطابقت دارد. همچنین می‌توانید مسیر کامل فایل را بررسی کنید تا مطمئن شوید که فایل به درستی در پروژه شما قرار دارد.
+اگر باز هم مشکلی داشتید، لطفاً جزئیات بیشتری از خطا و ساختار پروژه خود ارائه دهید تا بتوانم بهتر کمک کنم. 😊
+## You
+حل شد
+## Copilot
+عالیه! خوشحالم که مشکل حل شد. اگر سوال دیگری دارید یا نیاز به کمک بیشتری دارید، حتماً بپرسید. موفق باشید و از برنامه‌نویسی لذت ببرید! 😊
+## You
+کدام فایل ها در پوشه دیگر استفاده نمیوشد که حذف کنم
+## Copilot
+خوشحالم که مشکل حل شد! در حال حاضر، فایل‌هایی که در پروژه شما استفاده نمی‌شوند و می‌توانید حذف کنید، شامل فایل‌های زیر هستند:
+- index.css: اگر از این فایل برای استایل‌دهی استفاده نمی‌کنید، می‌توانید آن را حذف کنید.
+- App.css: اگر این فایل را ایجاد کرده‌اید و از آن استفاده نمی‌کنید، می‌توانید آن را حذف کنید.
+- App.js: اگر این فایل را ایجاد کرده‌اید و از آن استفاده نمی‌کنید، می‌توانید آن را حذف کنید.
+- logo.svg: اگر از این فایل برای لوگو استفاده نمی‌کنید، می‌توانید آن را حذف کنید.
+به طور کلی، هر فایلی که در پروژه شما استفاده نمی‌شود و به آن نیازی ندارید، می‌توانید حذف کنید. فقط مطمئن شوید که فایل‌هایی که حذف می‌کنید، در هیچ کدام از کامپوننت‌ها و فایل‌های دیگر وارد نشده باشند.
+اگر سوال دیگری دارید یا نیاز به کمک بیشتری دارید، حتماً بپرسید. موفق باشید! 😊
+## You
+دور هر کامپوننت یک باکس مشتطیلی گوشه دار با رنگ آبی ملایم قرار بده
+رنگ اصلی و بک گراند سایت را سبز ملایم بگذار
+از طرفی طوری هر کارت را بچین که در هر سطر 4 تا قرار بگیرد و سطر بعدی هم 4 تا و الی آخر یعنی حداکصر 4 تا و حداقل یکی
+## Copilot
+برای اعمال تغییرات مورد نظر شما، باید استایل‌های CSS را به‌روزرسانی کنیم. بیایید این کار را انجام دهیم:
+- index.css: این فایل را به‌روزرسانی کنید تا رنگ اصلی و بک‌گراند سایت را سبز ملایم کند و استایل‌های دیگر را اعمال کند.
+
+body {
+  background-color: #d4f7d4; /* سبز ملایم */
+  color: #333;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.tc {
+  text-align: center;
+}
+
+.bg-light-green {
+  background-color: #d4f7d4; /* سبز ملایم */
+}
+
+.dib {
+  display: inline-block;
+}
+
+.br3 {
+  border-radius: 8px; /* گوشه‌های گرد */
+}
+
+.pa3 {
+  padding: 1rem;
+}
+
+.ma2 {
+  margin: 0.5rem;
+}
+
+.grow {
+  transition: transform 0.2s;
+}
+
+.grow:hover {
+  transform: scale(1.05);
+}
+
+.bw2 {
+  border-width: 2px;
+}
+
+.shadow-5 {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  border: 2px solid #a3c4f3; /* رنگ آبی ملایم */
+  border-radius: 8px; /* گوشه‌های گرد */
+  margin: 10px;
+  width: calc(25% - 20px); /* هر سطر 4 کارت */
+  box-sizing: border-box;
+}
+
+- Card.js: این فایل را به‌روزرسانی کنید تا کلاس card را به کارت‌ها اضافه کند.
+
+import React from 'react';
+
+const Card = ({ id, name, email }) => {
+  return (
+    <div className='card tc bg-light-green dib br3 pa3 ma2 grow bw2 shadow-5'>
+      <img alt='robots' src={`https://robohash.org/${id}?200x200`} />
+      <div>
+        <h2>{name}</h2>
+        <p>{email}</p>
+      </div>
+    </div>
+  );
+}
+
+export default Card;
+
+- CardList.js: این فایل را به‌روزرسانی کنید تا کلاس card-container را به لیست کارت‌ها اضافه کند.
+
+import React from 'react';
+import Card from './Card';
+
+const CardList = ({ robots }) => {
+  return (
+    <div className='card-container'>
+      {
+        robots.map((user, i) => {
+          return (
+            <Card 
+              key={i} 
+              id={robots[i].id} 
+              name={robots[i].name} 
+              email={robots[i].email}
+            />
+          );
+        })
+      }
+    </div>
+  );
+}
+
+export default CardList;
+
+با این تغییرات، کارت‌ها در هر سطر حداکثر ۴ تا قرار می‌گیرند و دور هر کارت یک باکس مستطیلی گوشه‌دار با رنگ آبی ملایم خواهد بود. همچنین رنگ اصلی و بک‌گراند سایت سبز ملایم خواهد شد.
+اگر سوال دیگری دارید یا نیاز به کمک بیشتری دارید، حتماً بپرسید. موفق باشید! 😊
+## You
+خود سرچ باکس آبی کمرنگ و باکس هر کارد هم آبی کم رنگ یعنی خود باکس هم آبی مکرنگ نه فقط دور آن
+## Copilot
+متوجه شدم! بیایید استایل‌ها را به‌روزرسانی کنیم تا باکس هر کارت و خود سرچ باکس آبی کم‌رنگ باشند.
+- index.css: این فایل را به‌روزرسانی کنید تا استایل‌های جدید را اعمال کند.
+
+body {
+  background-color: #d4f7d4; /* سبز ملایم */
+  color: #333;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.tc {
+  text-align: center;
+}
+
+.bg-light-green {
+  background-color: #d4f7d4; /* سبز ملایم */
+}
+
+.dib {
+  display: inline-block;
+}
+
+.br3 {
+  border-radius: 8px; /* گوشه‌های گرد */
+}
+
+.pa3 {
+  padding: 1rem;
+}
+
+.ma2 {
+  margin: 0.5rem;
+}
+
+.grow {
+  transition: transform 0.2s;
+}
+
+.grow:hover {
+  transform: scale(1.05);
+}
+
+.bw2 {
+  border-width: 2px;
+}
+
+.shadow-5 {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  background-color: #a3c4f3; /* آبی کم‌رنگ */
+  border: 2px solid #a3c4f3; /* آبی کم‌رنگ */
+  border-radius: 8px; /* گوشه‌های گرد */
+  margin: 10px;
+  width: calc(25% - 20px); /* هر سطر 4 کارت */
+  box-sizing: border-box;
+}
+
+.search-box {
+  background-color: #a3c4f3; /* آبی کم‌رنگ */
+  border: 2px solid #a3c4f3; /* آبی کم‌رنگ */
+  border-radius: 8px; /* گوشه‌های گرد */
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+- Card.js: این فایل را به‌روزرسانی کنید تا کلاس card را به کارت‌ها اضافه کند.
+
+import React from 'react';
+
+const Card = ({ id, name, email }) => {
+  return (
+    <div className='card tc bg-light-green dib br3 pa3 ma2 grow bw2 shadow-5'>
+      <img alt='robots' src={`https://robohash.org/${id}?200x200`} />
+      <div>
+        <h2>{name}</h2>
+        <p>{email}</p>
+      </div>
+    </div>
+  );
+}
+
+export default Card;
+
+- CardList.js: این فایل را به‌روزرسانی کنید تا کلاس card-container را به لیست کارت‌ها اضافه کند.
+
+import React from 'react';
+import Card from './Card';
+
+const CardList = ({ robots }) => {
+  return (
+    <div className='card-container'>
+      {
+        robots.map((user, i) => {
+          return (
+            <Card 
+              key={i} 
+              id={robots[i].id} 
+              name={robots[i].name} 
+              email={robots[i].email}
+            />
+          );
+        })
+      }
+    </div>
+  );
+}
+
+export default CardList;
+
+- SearchBox.js: این فایل را به‌روزرسانی کنید تا کلاس search-box را به سرچ باکس اضافه کند.
+
+import React from 'react';
+
+const SearchBox = ({ searchChange }) => {
+  return (
+    <div className='pa2 search-box'>
+      <input 
+        className='pa3 ba b--green bg-lightest-blue'
+        type='search' 
+        placeholder='search robots' 
+        onChange={searchChange}
+      />
+    </div>
+  );
+}
+
+export default SearchBox;
+
+با این تغییرات، باکس هر کارت و خود سرچ باکس آبی کم‌رنگ خواهند شد. اگر سوال دیگری دارید یا نیاز به کمک بیشتری دارید، حتماً بپرسید. موفق باشید! 😊
+## You
+نه سرچ باکس را خراب کردی گفتم اندازه سرچ باکس را کمی بزرگتر کن یعنی مقداری کشیده تر شود و ازطرفی فقط خود سرچ باکس رنگش آبی کمرنگ شود که خود آن راسته سرچ باکس
+## Copilot
+متوجه شدم! بیایید استایل سرچ باکس را به‌روزرسانی کنیم تا کمی بزرگتر و کشیده‌تر شود و رنگ خود باکس آبی کم‌رنگ باشد.
+- index.css: این فایل را به‌روزرسانی کنید تا استایل‌های جدید را اعمال کند.
+
+body {
+  background-color: #d4f7d4; /* سبز ملایم */
+  color: #333;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.tc {
+  text-align: center;
+}
+
+.bg-light-green {
+  background-color: #d4f7d4; /* سبز ملایم */
+}
+
+.dib {
+  display: inline-block;
+}
+
+.br3 {
+  border-radius: 8px; /* گوشه‌های گرد */
+}
+
+.pa3 {
+  padding: 1rem;
+}
+
+.ma2 {
+  margin: 0.5rem;
+}
+
+.grow {
+  transition: transform 0.2s;
+}
+
+.grow:hover {
+  transform: scale(1.05);
+}
+
+.bw2 {
+  border-width: 2px;
+}
+
+.shadow-5 {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  background-color: #a3c4f3; /* آبی کم‌رنگ */
+  border: 2px solid #a3c4f3; /* آبی کم‌رنگ */
+  border-radius: 8px; /* گوشه‌های گرد */
+  margin: 10px;
+  width: calc(25% - 20px); /* هر سطر 4 کارت */
+  box-sizing: border-box;
+}
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.search-input {
+  background-color: #a3c4f3; /* آبی کم‌رنگ */
+  border: 2px solid #a3c4f3; /* آبی کم‌رنگ */
+  border-radius: 8px; /* گوشه‌های گرد */
+  padding: 1rem;
+  width: 300px; /* اندازه بزرگتر و کشیده‌تر */
+}
+
+- SearchBox.js: این فایل را به‌روزرسانی کنید تا کلاس search-input را به سرچ باکس اضافه کند.
+
+import React from 'react';
+
+const SearchBox = ({ searchChange }) => {
+  return (
+    <div className='pa2 search-box'>
+      <input 
+        className='pa3 ba b--green bg-lightest-blue search-input'
+        type='search' 
+        placeholder='search robots' 
+        onChange={searchChange}
+      />
+    </div>
+  );
+}
+
+export default SearchBox;
+
+با این تغییرات، اندازه سرچ باکس بزرگتر و کشیده‌تر خواهد شد و رنگ خود باکس آبی کم‌رنگ خواهد بود. اگر سوال دیگری دارید یا نیاز به کمک بیشتری دارید، حتماً بپرسید. موفق باشید! 😊
+## You
+دو تا کار دیگه هم بکن لطفا
+اول اینکه ریسپانسیو کن لطفا
+د.م اینکه با اسکرول به سمت پایین سرچ بار هم نمایان باشد
+## Copilot
+حتماً! بیایید این دو تغییر را اعمال کنیم:
+- ریسپانسیو کردن سایت: برای ریسپانسیو کردن سایت، می‌توانیم از مدیا کوئری‌ها در CSS استفاده کنیم تا کارت‌ها در اندازه‌های مختلف صفحه به درستی نمایش داده شوند.
+- نمایان بودن سرچ بار با اسکرول: برای این کار می‌توانیم از استایل position: sticky استفاده کنیم تا سرچ بار همیشه در بالای صفحه نمایان باشد.
+ابتدا فایل index.css را به‌روزرسانی می‌کنیم:
+
+body {
+  background-color: #d4f7d4; /* سبز ملایم */
+  color: #333;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.tc {
+  text-align: center;
+}
+
+.bg-light-green {
+  background-color: #d4f7d4; /* سبز ملایم */
+}
+
+.dib {
+  display: inline-block;
+}
+
+.br3 {
+  border-radius: 8px; /* گوشه‌های گرد */
+}
+
+.pa3 {
+  padding: 1rem;
+}
+
+.ma2 {
+  margin: 0.5rem;
+}
+
+.grow {
+  transition: transform 0.2s;
+}
+
+.grow:hover {
+  transform: scale(1.05);
+}
+
+.bw2 {
+  border-width: 2px;
+}
+
+.shadow-5 {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  background-color: #a3c4f3; /* آبی کم‌رنگ */
+  border: 2px solid #a3c4f3; /* آبی کم‌رنگ */
+  border-radius: 8px; /* گوشه‌های گرد */
+  margin: 10px;
+  width: calc(25% - 20px); /* هر سطر 4 کارت */
+  box-sizing: border-box;
+}
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  position: sticky;
+  top: 0;
+  background-color: #d4f7d4; /* سبز ملایم */
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.search-input {
+  background-color: #a3c4f3; /* آبی کم‌رنگ */
+  border: 2px solid #a3c4f3; /* آبی کم‌رنگ */
+  border-radius: 8px; /* گوشه‌های گرد */
+  padding: 1rem;
+  width: 300px; /* اندازه بزرگتر و کشیده‌تر */
+}
+
+/* مدیا کوئری‌ها برای ریسپانسیو کردن سایت */
+@media (max-width: 1200px) {
+  .card {
+    width: calc(33.33% - 20px); /* هر سطر 3 کارت */
+  }
+}
+
+@media (max-width: 900px) {
+  .card {
+    width: calc(50% - 20px); /* هر سطر 2 کارت */
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    width: calc(100% - 20px); /* هر سطر 1 کارت */
+  }
+}
+
+با این تغییرات، سایت شما ریسپانسیو خواهد بود و کارت‌ها در اندازه‌های مختلف صفحه به درستی نمایش داده می‌شوند. همچنین، سرچ بار با اسکرول به سمت پایین همیشه در بالای صفحه نمایان خواهد بود.
+اگر سوال دیگری دارید یا نیاز به کمک بیشتری دارید، حتماً بپرسید. موفق باشید! 😊

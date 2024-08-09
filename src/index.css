@@ -1,0 +1,100 @@
+body {
+  background-color: #d4f7d4; /* سبز ملایم */
+  color: #333;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.tc {
+  text-align: center;
+}
+
+.bg-light-green {
+  background-color: #d4f7d4; /* سبز ملایم */
+}
+
+.dib {
+  display: inline-block;
+}
+
+.br3 {
+  border-radius: 8px; /* گوشه‌های گرد */
+}
+
+.pa3 {
+  padding: 1rem;
+}
+
+.ma2 {
+  margin: 0.5rem;
+}
+
+.grow {
+  transition: transform 0.2s;
+}
+
+.grow:hover {
+  transform: scale(1.05);
+}
+
+.bw2 {
+  border-width: 2px;
+}
+
+.shadow-5 {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  background-color: #a3c4f3; /* آبی کم‌رنگ */
+  border: 2px solid #a3c4f3; /* آبی کم‌رنگ */
+  border-radius: 8px; /* گوشه‌های گرد */
+  margin: 10px;
+  width: calc(25% - 20px); /* هر سطر 4 کارت */
+  box-sizing: border-box;
+}
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  position: sticky;
+  top: 0;
+  background-color: #d4f7d4; /* سبز ملایم */
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.search-input {
+  background-color: #a3c4f3; /* آبی کم‌رنگ */
+  border: 2px solid #a3c4f3; /* آبی کم‌رنگ */
+  border-radius: 8px; /* گوشه‌های گرد */
+  padding: 1rem;
+  width: 300px; /* اندازه بزرگتر و کشیده‌تر */
+}
+
+/* مدیا کوئری‌ها برای ریسپانسیو کردن سایت */
+@media (max-width: 1200px) {
+  .card {
+    width: calc(33.33% - 20px); /* هر سطر 3 کارت */
+  }
+}
+
+@media (max-width: 900px) {
+  .card {
+    width: calc(50% - 20px); /* هر سطر 2 کارت */
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    width: calc(100% - 20px); /* هر سطر 1 کارت */
+  }
+}
